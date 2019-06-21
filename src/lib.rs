@@ -1,32 +1,49 @@
-// s-stripping stemmer as per the ATIRE search engine (atire.org).
-pub fn stemmer_s(term: &str) -> String {
-    let s =
-        if term.ends_with("ies") {
-            let i = term.rfind("ies").unwrap();
-            String::from(&term[0..i]) + "y"
-        } else if term.ends_with("es") {
-            let i = term.rfind("es").unwrap();
-            String::from(&term[0..i])
-        } else if term.ends_with("s") {
-            let i = term.rfind("s").unwrap();
-            String::from(&term[0..i])
-        } else {
-            String::from(term)
-        };
+//! # Polystem
+//!
+//! A collection of common stemming algorithms.
 
-    s
+/// Strips `ies`, `es` and `s` from terms. Based on [Atire](http://atire.org).
+///
+/// # Examples
+///
+/// ```
+/// let mut term = String::from("bars");
+/// let stem = polystem::s_stem(&mut term);
+///
+/// assert_eq!("bar", stem);
+/// ```
+pub fn s_stem(term: &mut String) -> &mut String {
+    if term.ends_with("ies") {
+        term.truncate(term.len() - 3);
+        term.push('y');
+    } else if term.ends_with("es") {
+        term.truncate(term.len() - 2);
+    } else if term.ends_with("s") {
+        term.truncate(term.len() - 1);
+    }
+
+    term
 }
 
 #[cfg(test)]
 mod tests {
-    use super::stemmer_s;
+    use super::*;
+
     #[test]
     fn test_s_stemmer() {
-        assert_eq!(stemmer_s("flies"), "fly");
-        assert_eq!(stemmer_s("blesses"), "bless");
-        assert_ne!(stemmer_s("suitcases"), "suitcase");
-        assert_ne!(stemmer_s("theres"), "there");
-        assert_eq!(stemmer_s("foos"), "foo");
-        assert_eq!(stemmer_s("foo"), "foo");
+        let mut s = String::from("flies");
+        assert_eq!(s_stem(&mut s), "fly");
+
+        let mut s = String::from("blesses");
+        assert_eq!(s_stem(&mut s), "bless");
+
+        let mut s = String::from("suitcases");
+        assert_eq!(s_stem(&mut s), "suitcas");
+
+        let mut s = String::from("theres");
+        assert_eq!(s_stem(&mut s), "ther");
+
+        let mut s = String::from("suns");
+        assert_eq!(s_stem(&mut s), "sun");
     }
 }
