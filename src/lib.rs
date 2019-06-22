@@ -26,24 +26,22 @@ pub fn s_stem(term: &mut String) -> &mut String {
 }
 
 #[cfg(test)]
+mod fixture_test;
+
+#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_s_stemmer() {
-        let mut s = String::from("flies");
-        assert_eq!(s_stem(&mut s), "fly");
+    fn test_s_stem() {
+        for (i, _) in fixture_test::WORDS.iter().enumerate() {
+            let word = fixture_test::WORDS[i];
+            let mut word = String::from(word);
+            let expected = fixture_test::S_STEMMED[i];
+            assert_eq!(s_stem(&mut word), expected);
+        }
+    }
 
-        let mut s = String::from("blesses");
-        assert_eq!(s_stem(&mut s), "bless");
 
-        let mut s = String::from("suitcases");
-        assert_eq!(s_stem(&mut s), "suitcas");
-
-        let mut s = String::from("theres");
-        assert_eq!(s_stem(&mut s), "ther");
-
-        let mut s = String::from("suns");
-        assert_eq!(s_stem(&mut s), "sun");
     }
 }
