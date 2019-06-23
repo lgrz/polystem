@@ -12,7 +12,7 @@
 ///
 /// assert_eq!("bar", stem);
 /// ```
-pub fn s_stem(term: &mut String) -> &mut String {
+pub fn s_stem(term: &mut String) -> String {
     if term.ends_with("ies") {
         term.truncate(term.len() - 3);
         term.push('y');
@@ -22,7 +22,7 @@ pub fn s_stem(term: &mut String) -> &mut String {
         term.truncate(term.len() - 1);
     }
 
-    term
+    term.to_string()
 }
 
 #[cfg(test)]
@@ -37,7 +37,8 @@ mod tests {
         for (i, _) in fixture_test::WORDS.iter().enumerate() {
             let word = fixture_test::WORDS[i];
             let mut word = String::from(word);
-            let expected = fixture_test::S_STEMMED[i];
+            let expected = fixture_test::S_STEM[i];
+
             assert_eq!(s_stem(&mut word), expected);
         }
     }

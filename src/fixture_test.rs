@@ -9,7 +9,7 @@ pub const WORDS: &'static [&'static str] = &[
 ];
 
 // s-stemmer stems
-pub const S_STEMMED: &'static [&'static str] = &[
+pub const S_STEM: &'static [&'static str] = &[
     "fly",
     "bless",
     "suitcas",
