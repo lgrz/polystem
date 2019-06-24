@@ -6,6 +6,6 @@ authors = ["Luke Gallagher <luke@hypergeometric.net>"]
 repository = "https://github.com/lgrz/polystem"
 edition = "2018"
 license = "MIT"
-keywords = ["s-stemmer", "stemmer", "stem"]
+keywords = ["porter", "s-stemmer", "stemmer", "stem"]
 
 [dependencies]
