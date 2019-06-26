@@ -22,10 +22,10 @@ impl Stemmer for S {
     /// # Examples
     ///
     /// ```
-    /// use polystem::Stemmer;
+    /// use polystem::{Stemmer, S};
     ///
     /// let term = "flies";
-    /// let stem = polystem::S::stem(&term);
+    /// let stem = S::stem(&term);
     ///
     /// assert_eq!("fly", stem);
     /// ```
@@ -586,6 +586,17 @@ impl Stemmer for Porter {
     /// >No. 3, pp 130-137
     ///
     /// [tartarus]: https://tartarus.org/martin/PorterStemmer/
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use polystem::{Stemmer, Porter};
+    ///
+    /// let term = "rusted";
+    /// let stem = Porter::stem(&term);
+    ///
+    /// assert_eq!("rust", stem);
+    /// ```
     fn stem(word: &str) -> String {
         if word.len() > 2 {
             let mut porter = Porter::new(word);
