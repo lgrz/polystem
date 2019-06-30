@@ -16,7 +16,7 @@ pub trait Stemmer {
 pub struct S;
 
 impl Stemmer for S {
-    /// A simple stemmer that strips `ies`, `es` and `s` from terms. Dervied
+    /// A simple stemmer that strips `ies`, `es` and `s` from terms. Derived
     /// from the s-stemmer in the [Atire](http://atire.org) search engine.
     ///
     /// # Examples
